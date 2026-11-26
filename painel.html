@@ -296,7 +296,6 @@
                         <strong>— Portal & Atividade</strong>
                         <div>🐛・bugs (Modal QA)</div>
                         <div>💡・sugestões (Modal)</div>
-                        <div>🚩・encontrar-clãs (Modal)</div>
                         <div>📋・formulários (Recrutamento)</div>
                         <div>🔄・staff-log | 📝・enquetes | 🎁・sorteios</div>
                     </div>
@@ -514,9 +513,7 @@
                             <option value="recrutamento">📋 Formulário de Recrutamento (Dev & Staff)</option>
                             <option value="bugs">🐛 Portal de Reportar Bugs (Modal QA)</option>
                             <option value="sugestoes">💡 Portal de Sugestões da Comunidade</option>
-                            <option value="clas">🚩 Portal de Clãs & Guildas</option>
                             <option value="vincular">🔗 Vincular Conta Roblox</option>
-                            <option value="live">🔴 Menu de Creators / Lives</option>
                             <option value="video">🎬 Divulgar Vídeo da Comunidade</option>
                         </select>
                     </div>
@@ -646,7 +643,6 @@
                 <div style="display: flex; gap: 15px;">
                     <div class="form-group" style="flex: 1;"><label>Fase Atual</label><input type="text" id="cfg-fase" class="input-dark"></div>
                     <div class="form-group" style="flex: 1;"><label>Link do Grupo / Jogo Roblox</label><input type="text" id="cfg-roblox-url" class="input-dark"></div>
-                    <div class="form-group" style="flex: 1;"><label>Creators / Streamers (separados por vírgula)</label><input type="text" id="cfg-streamers" class="input-dark"></div>
                 </div>
                 <label style="display: flex; align-items: center; gap: 10px; margin: 12px 0; cursor: pointer;">
                     <input type="checkbox" id="cfg-autosetup" checked style="width: 18px; height: 18px;">
@@ -1060,7 +1056,6 @@
                     document.getElementById('cfg-genero').value = data.config.genero_jogo || "Action RPG";
                     document.getElementById('cfg-fase').value = data.config.fase_atual || "Alpha";
                     document.getElementById('cfg-roblox-url').value = data.config.url_jogo_roblox || "";
-                    document.getElementById('cfg-streamers').value = (data.config.streamers || []).join(", ");
                     document.getElementById('cfg-autosetup').checked = data.config.auto_setup_on_join !== false;
                 }
             } catch (e) {}
@@ -1073,7 +1068,6 @@
                 genero_jogo: document.getElementById('cfg-genero').value,
                 fase_atual: document.getElementById('cfg-fase').value,
                 url_jogo_roblox: document.getElementById('cfg-roblox-url').value,
-                streamers: document.getElementById('cfg-streamers').value,
                 auto_setup_on_join: document.getElementById('cfg-autosetup').checked
             });
         }
@@ -1088,9 +1082,7 @@
             if (val === 'recrutamento') { tit.value = "📋 RECRUTAMENTO — EQUIPE DEV & STAFF"; desc.value = "Quer fazer parte do RAVOK STUDIOS (Scripter, Builder, 3D, UI, Staff)? Envie seu formulário!"; cor.value = "#22c55e"; }
             if (val === 'bugs') { tit.value = "🐛 PORTAL DE BUGS & QA"; desc.value = "Encontrou algum bug durante os playtests? Reporte pelo botão abaixo!"; cor.value = "#ef4444"; }
             if (val === 'sugestoes') { tit.value = "💡 PORTAL DE SUGESTÕES"; desc.value = "Envie uma sugestão para o nosso jogo no Roblox!"; cor.value = "#f59e0b"; }
-            if (val === 'clas') { tit.value = "🚩 ENCONTRAR CLÃS & GUILDAS"; desc.value = "Divulgue seu clã ou encontre um grupo para jogar!"; cor.value = "#4f46e5"; }
             if (val === 'vincular') { tit.value = "🔗 VINCULAR CONTA ROBLOX"; desc.value = "Vincule seu @ do Roblox com o Discord e receba seu cargo de Membro!"; cor.value = "#14b8a6"; }
-            if (val === 'live') { tit.value = "🔴 CENTRAL DE CREATORS & LIVES"; desc.value = "Selecione seu nome abaixo para anunciar sua live ou divulgar um vídeo!"; cor.value = "#ef4444"; }
             if (val === 'video') { tit.value = "🎬 DIVULGAR VÍDEO DA COMUNIDADE"; desc.value = "Compartilhe seus vídeos sobre o jogo!"; cor.value = "#ef4444"; }
         }
 
