@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "http://bots-01.magnohost.com.br:25611/api/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "http://bots-01.magnohost.com.br:25611/uploads/:path*"
+    },
+    {
+      "source": "/painel",
+      "destination": "/painel.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/painel.html"
+    }
+  ]
+}

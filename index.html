@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAVOK STUDIOS — Roblox Game Development Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #060911;
+            --bg-card: #0e1422;
+            --accent-cyan: #00d2ff;
+            --accent-blue: #4f46e5;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-cyan: rgba(0, 210, 255, 0.2);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            background-image:
+                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.08) 0%, transparent 35%),
+                radial-gradient(circle at 85% 30%, rgba(79, 70, 229, 0.09) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(14px);
+            background: rgba(6, 9, 17, 0.82);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 18px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; text-decoration: none; color: white; display: flex; align-items: center; gap: 10px; }
+        .brand span { color: var(--accent-cyan); text-shadow: 0 0 15px rgba(0, 210, 255, 0.45); }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: 0.2s; }
+        .nav-links a:hover { color: var(--accent-cyan); }
+        .btn-nav {
+            background: linear-gradient(135deg, var(--accent-cyan), #06b6d4);
+            color: #04070f !important;
+            font-weight: 700 !important;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 85px 28px 65px;
+            text-align: center;
+        }
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 18px;
+            border-radius: 99px;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--border-cyan);
+            color: var(--accent-cyan);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4.3rem);
+            font-weight: 900;
+            line-height: 1.12;
+            margin-bottom: 20px;
+        }
+        .hero h1 span {
+            background: linear-gradient(90deg, #00d2ff, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto 36px;
+            color: var(--text-muted);
+            font-size: 1.08rem;
+            line-height: 1.65;
+        }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-hero {
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.98rem;
+            transition: 0.25s;
+        }
+        .btn-hero:hover { transform: translateY(-2px); }
+        .btn-cyan-hero { background: linear-gradient(135deg, #00d2ff, #0284c7); color: #050811; box-shadow: 0 10px 30px rgba(0, 210, 255, 0.28); }
+        .btn-dark-hero { background: var(--bg-card); color: white; border: 1px solid var(--border-cyan); }
+
+        /* STATS STRIP */
+        .stats-strip {
+            max-width: 1200px;
+            margin: 0 auto 70px;
+            padding: 0 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+        .stat-box h3 { font-size: 2.2rem; font-weight: 800; color: var(--accent-cyan); }
+        .stat-box p { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* SECTIONS */
+        section { max-width: 1280px; margin: 0 auto 85px; padding: 0 28px; }
+        .section-header { text-align: center; margin-bottom: 44px; }
+        .section-header h2 { font-size: 2.1rem; font-weight: 800; margin-bottom: 10px; }
+        .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* PROGRESS TRACKER */
+        .tracker-card {
+            background: linear-gradient(145deg, #0f1626 0%, #0b101c 100%);
+            border: 1px solid var(--border-cyan);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+        }
+        .overall-bar-wrap { margin-bottom: 36px; }
+        .overall-bar-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+        .overall-bar-bg { width: 100%; height: 18px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
+        .overall-bar-fill { height: 100%; background: linear-gradient(90deg, #4f46e5, #00d2ff); border-radius: 99px; transition: width 0.6s ease; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+
+        .dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+        .dept-item { background: rgba(0,0,0,0.32); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 20px; }
+        .dept-top { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
+        .dept-bar-bg { width: 100%; height: 10px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; margin-bottom: 10px; }
+        .dept-bar-fill { height: 100%; background: linear-gradient(90deg, #00d2ff, #a855f7); border-radius: 99px; }
+        .dept-detail { font-size: 0.82rem; color: var(--text-muted); }
+
+        /* LORE GRID */
+        .lore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
+        .lore-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-top: 3px solid var(--accent-purple);
+            border-radius: 16px;
+            padding: 28px;
+            transition: 0.25s;
+        }
+        .lore-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
+        .lore-tag { display: inline-block; font-size: 0.72rem; padding: 4px 10px; border-radius: 6px; background: rgba(168, 85, 247, 0.15); color: #c084fc; font-weight: 700; margin-bottom: 12px; }
+        .lore-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .lore-quote { font-size: 0.86rem; color: var(--accent-cyan); font-style: italic; margin-bottom: 14px; }
+        .lore-body { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; white-space: pre-line; }
+
+        /* DEPARTMENTS / ROLES */
+        .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .role-box { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 22px; }
+        .role-box h4 { font-size: 1.05rem; margin-bottom: 8px; color: var(--accent-cyan); }
+        .role-box p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 28px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="/" class="brand">⚡ RAVOK <span>STUDIOS</span></a>
+            <nav class="nav-links">
+                <a href="#progresso">Progresso Live</a>
+                <a href="#lore">Universo & Lore</a>
+                <a href="#equipe">Departamentos</a>
+                <a href="/painel.html" class="btn-nav"><i class="fa-solid fa-sliders"></i> Central Dev / Painel</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="pill-badge" id="hero-fase"><i class="fa-solid fa-fire"></i> ROBLOX STUDIO • EM DESENVOLVIMENTO</div>
+        <h1>FORJANDO O NOVO UNIVERSO<br><span id="hero-jogo">RAVOK STUDIOS NO ROBLOX</span></h1>
+        <p id="hero-nota">
+            Acompanhe em tempo real o progresso de desenvolvimento, capítulos oficiais da Lore, sistemas em Luau, modelagem 3D e atualizações diretamente sincronizadas com o nosso Bot e Equipe no Discord.
+        </p>
+        <div class="hero-btns">
+            <a href="#progresso" class="btn-hero btn-cyan-hero"><i class="fa-solid fa-chart-line"></i> Ver Progresso do Jogo</a>
+            <a href="/painel.html" class="btn-hero btn-dark-hero"><i class="fa-solid fa-terminal"></i> Abrir Painel da Equipe</a>
+        </div>
+    </div>
+
+    <div class="stats-strip">
+        <div class="stat-box">
+            <h3 id="stat-geral">28%</h3>
+            <p>Progresso Geral da Build</p>
+        </div>
+        <div class="stat-box">
+            <h3 id="stat-tasks">0</h3>
+            <p>Sistemas & Tarefas no Quadro</p>
+        </div>
+        <div class="stat-box">
+            <h3 id="stat-ideias">0</h3>
+            <p>Ideias Aprovadas</p>
+        </div>
+        <div class="stat-box">
+            <h3 id="stat-lore">0</h3>
+            <p>Capítulos Oficiais de Lore</p>
+        </div>
+    </div>
+
+    <section id="progresso">
+        <div class="section-header">
+            <h2>📊 DEV TRACKER <span style="color: var(--accent-cyan);">EM TEMPO REAL</span></h2>
+            <p>Sincronizado automaticamente com o canal <strong>#📊・progresso</strong> e <strong>#🖥️・status</strong> do Discord</p>
+        </div>
+
+        <div class="tracker-card">
+            <div class="overall-bar-wrap">
+                <div class="overall-bar-header">
+                    <div>
+                        <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700; text-transform: uppercase;" id="trk-versao">BUILD v0.1.0-ALPHA</span>
+                        <h3 style="font-size: 1.4rem;">Progresso Total rumo ao Lançamento</h3>
+                    </div>
+                    <span style="font-size: 2rem; font-weight: 900; color: var(--accent-cyan);" id="trk-pct">28%</span>
+                </div>
+                <div class="overall-bar-bg">
+                    <div class="overall-bar-fill" id="trk-bar" style="width: 28%;"></div>
+                </div>
+            </div>
+
+            <div class="dept-grid" id="dept-grid-box"></div>
+        </div>
+    </section>
+
+    <section id="lore">
+        <div class="section-header">
+            <h2>📖 UNIVERSO & <span style="color: var(--accent-purple);">LORE OFICIAL</span></h2>
+            <p>Histórias, facções e capítulos publicados pela nossa equipe criativa via Discord e Painel</p>
+        </div>
+        <div class="lore-grid" id="public-lore-grid"></div>
+    </section>
+
+    <section id="equipe">
+        <div class="section-header">
+            <h2>🛠️ ESTRUTURA DA <span style="color: var(--accent-cyan);">EQUIPE DE DESENVOLVIMENTO</span></h2>
+            <p>Nossos departamentos especializados dentro do Roblox Studio e Discord</p>
+        </div>
+        <div class="roles-grid">
+            <div class="role-box"><h4>📜 Scripters (Luau)</h4><p>Arquitetura client-server, sistemas de combate, DataStore, inteligência artificial de bosses e otimização.</p></div>
+            <div class="role-box"><h4>🏗️ Builders & Level Design</h4><p>Construção de mundos, ambientação, iluminação atmosférica e arenas imersivas no Roblox Studio.</p></div>
+            <div class="role-box"><h4>🧊 Modeladores 3D</h4><p>Criação de armas, armaduras, criaturas e assets low/mid-poly otimizados no Blender.</p></div>
+            <div class="role-box"><h4>🎨 UI / UX Designers</h4><p>Interfaces modernas, HUDs responsivas, animações de menu e experiência do jogador.</p></div>
+            <div class="role-box"><h4>✨ VFX, SFX & Animadores</h4><p>Efeitos visuais de habilidades, partículas customizadas, rigging R15/Custom e cutscenes.</p></div>
+            <div class="role-box"><h4>📖 Lore & QA Testers</h4><p>Criação de narrativa, diálogos de NPCs, balanceamento de progressão e caça a bugs.</p></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>⚡ <strong>RAVOK STUDIOS</strong> • Ecossistema Integrado (Discord Bot + Painel Dev + Site Oficial)</p>
+    </footer>
+
+    <script>
+        const API_URL = (window.location.protocol.startsWith('http') ? window.location.origin : "http://localhost:25611") + "/api";
+
+        async function carregarSitePublico() {
+            try {
+                const r = await fetch(`${API_URL}/public_overview`);
+                const data = await r.json();
+                if (data.status !== "sucesso") return;
+
+                document.getElementById('hero-fase').innerHTML = `<i class="fa-solid fa-fire"></i> ${data.fase} • ${data.genero}`;
+                document.getElementById('hero-jogo').innerText = data.jogo;
+                if (data.progresso && data.progresso.nota_dev) {
+                    document.getElementById('hero-nota').innerText = data.progresso.nota_dev;
+                }
+
+                const pct = data.progresso_geral || 0;
+                document.getElementById('stat-geral').innerText = pct + '%';
+                document.getElementById('trk-pct').innerText = pct + '%';
+                document.getElementById('trk-bar').style.width = pct + '%';
+                document.getElementById('trk-versao').innerText = `BUILD ${data.progresso?.versao || 'v0.1.0-ALPHA'} • Atualizado em ${data.progresso?.ultima_atualizacao || 'Hoje'}`;
+
+                if (data.metricas) {
+                    document.getElementById('stat-tasks').innerText = `${data.metricas.tasks_concluidas}/${data.metricas.tasks_total}`;
+                    document.getElementById('stat-ideias').innerText = data.metricas.ideias_aprovadas;
+                    document.getElementById('stat-lore').innerText = data.metricas.capitulos_lore;
+                }
+
+                const dbox = document.getElementById('dept-grid-box');
+                dbox.innerHTML = '';
+                (data.progresso?.areas || []).forEach(a => {
+                    dbox.innerHTML += `
+                        <div class="dept-item">
+                            <div class="dept-top">
+                                <span>${a.nome}</span>
+                                <span style="color:var(--accent-cyan);">${a.porcentagem}%</span>
+                            </div>
+                            <div class="dept-bar-bg"><div class="dept-bar-fill" style="width:${a.porcentagem}%"></div></div>
+                            <div class="dept-detail">🎯 ${a.detalhe || ''} • 👥 ${a.responsavel || 'Equipe Dev'}</div>
+                        </div>
+                    `;
+                });
+
+                const lbox = document.getElementById('public-lore-grid');
+                lbox.innerHTML = '';
+                (data.lore_destaque || []).forEach(l => {
+                    lbox.innerHTML += `
+                        <div class="lore-card">
+                            <span class="lore-tag">${l.categoria} • ${l.id}</span>
+                            <h3>${l.titulo}</h3>
+                            <div class="lore-quote">"${l.resumo}"</div>
+                            <div class="lore-body">${l.conteudo}</div>
+                        </div>
+                    `;
+                });
+            } catch (e) {}
+        }
+
+        carregarSitePublico();
+        setInterval(carregarSitePublico, 8000);
+    </script>
+</body>
+</html>
