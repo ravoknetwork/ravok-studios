@@ -4,11 +4,11 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "http://bots-01.magnohost.com.br:25611/api/:path*"
+      "destination": "http://bots-01.magnohost.com.br:25746/api/:path*"
     },
     {
       "source": "/uploads/:path*",
-      "destination": "http://bots-01.magnohost.com.br:25611/uploads/:path*"
+      "destination": "http://bots-01.magnohost.com.br:25746/uploads/:path*"
     },
     {
       "source": "/painel",
