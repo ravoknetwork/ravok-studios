@@ -11,6 +11,14 @@
       "destination": "http://bots-01.magnohost.com.br:25746/uploads/:path*"
     },
     {
+      "source": "/loja",
+      "destination": "/loja.html"
+    },
+    {
+      "source": "/portal",
+      "destination": "/portal.html"
+    },
+    {
       "source": "/painel",
       "destination": "/painel.html"
     },

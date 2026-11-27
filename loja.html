@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Oficial — Rede Ravok | RAVOK STUDIOS</title>
+    <link rel="icon" type="image/jpeg" href="/assets/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #060911;
+            --bg-card: #0b1224;
+            --accent-gold: #f5c542;
+            --accent-gold-light: #ffe9a0;
+            --accent-cyan: #00d2ff;
+            --accent-navy: #123a8f;
+            --text-main: #f4f6fc;
+            --text-muted: #9aa7c2;
+            --border-subtle: rgba(245, 197, 66, 0.14);
+            --border-gold: rgba(245, 197, 66, 0.42);
+            --success: #22c55e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            background-image:
+                radial-gradient(circle at 18% 0%, rgba(18, 58, 143, 0.28), transparent 45%),
+                radial-gradient(circle at 82% 8%, rgba(245, 197, 66, 0.12), transparent 40%);
+            min-height: 100vh;
+        }
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(6, 9, 17, 0.9); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 14px 28px;
+            display: flex; justify-content: space-between; align-items: center; gap: 16px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; font-family: 'Cinzel', serif; font-weight: 900; font-size: 1.2rem; color: var(--text-main); text-decoration: none; }
+        .brand span { color: var(--accent-gold); }
+        .nav-links { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-gold-light); }
+        .btn-nav {
+            background: linear-gradient(135deg, var(--accent-gold), #d99b1c);
+            color: #060911 !important; padding: 9px 18px; border-radius: 10px; font-weight: 800 !important;
+        }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 42px 24px 80px; }
+        .hero-shop {
+            background: linear-gradient(145deg, #0d1730 0%, #070b16 100%);
+            border: 1px solid var(--border-gold); border-radius: 22px; padding: 36px;
+            display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center;
+            margin-bottom: 36px; box-shadow: 0 18px 50px rgba(0,0,0,0.5);
+        }
+        @media (max-width: 820px) { .hero-shop { grid-template-columns: 1fr; } }
+        .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 99px; background: rgba(245,197,66,0.14); border: 1px solid var(--border-gold); color: var(--accent-gold-light); font-size: 0.78rem; font-weight: 800; margin-bottom: 14px; }
+        .hero-shop h1 { font-family: 'Cinzel', serif; font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 900; margin-bottom: 10px; }
+        .hero-shop h1 span { color: var(--accent-gold); }
+        .hero-shop p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+
+        .nick-box {
+            background: rgba(6, 9, 17, 0.75); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 20px;
+        }
+        .nick-preview { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+        .nick-preview img { width: 56px; height: 56px; border-radius: 10px; border: 2px solid var(--accent-gold); image-rendering: pixelated; background: #0d162e; }
+        .input-mc {
+            width: 100%; background: #060911; border: 1px solid var(--border-gold); color: #fff;
+            padding: 11px 14px; border-radius: 10px; font-size: 0.92rem; outline: none;
+        }
+
+        .tabs-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+        .cat-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cat-btn {
+            background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-muted);
+            padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s;
+        }
+        .cat-btn.active, .cat-btn:hover { background: rgba(245,197,66,0.16); border-color: var(--accent-gold); color: var(--accent-gold-light); }
+        .cart-pill {
+            background: linear-gradient(135deg, var(--accent-gold), #d99b1c); color: #060911;
+            border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
+        .prod-card {
+            background: linear-gradient(160deg, #0e1832 0%, #080d1b 100%);
+            border: 1px solid var(--border-subtle); border-radius: 18px; padding: 24px;
+            display: flex; flex-direction: column; justify-content: space-between; transition: 0.25s;
+        }
+        .prod-card:hover { transform: translateY(-4px); border-color: var(--accent-gold); box-shadow: 0 12px 35px rgba(245,197,66,0.12); }
+        .prod-card.featured { border-color: var(--accent-gold); }
+        .prod-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+        .prod-icon { width: 52px; height: 52px; border-radius: 12px; background: rgba(245,197,66,0.12); border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .prod-tag { font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 99px; background: rgba(0,210,255,0.14); color: var(--accent-cyan); }
+        .prod-card h3 { font-size: 1.25rem; font-weight: 800; color: var(--accent-gold-light); margin-bottom: 6px; }
+        .prod-price { font-size: 1.65rem; font-weight: 900; color: #fff; margin: 10px 0 14px; }
+        .prod-price small { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+        .prod-list { list-style: none; margin-bottom: 20px; }
+        .prod-list li { font-size: 0.85rem; color: var(--text-muted); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+        .prod-list li i { color: var(--accent-gold); font-size: 0.75rem; }
+        .btn-buy {
+            width: 100%; border: none; border-radius: 10px; padding: 12px; font-weight: 800; cursor: pointer;
+            background: linear-gradient(135deg, var(--accent-gold), #d99b1c); color: #060911; transition: 0.2s;
+        }
+        .btn-buy:hover { filter: brightness(1.08); }
+
+        .modal-bg {
+            position: fixed; inset: 0; background: rgba(4,6,12,0.85); backdrop-filter: blur(8px);
+            display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px;
+        }
+        .modal-box {
+            background: var(--bg-card); border: 1px solid var(--border-gold); border-radius: 20px;
+            max-width: 480px; width: 100%; padding: 28px;
+        }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.9rem; }
+        footer { border-top: 1px solid var(--border-subtle); padding: 34px 20px; text-align: center; color: var(--text-muted); font-size: 0.84rem; background: #04070d; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <img src="/assets/logo.jpg" alt="Ravok" style="width:40px; height:40px; border-radius:10px; border:1px solid var(--border-gold);">
+                RAVOK <span>STUDIOS</span>
+            </a>
+            <nav class="nav-links">
+                <a href="/">Início</a>
+                <a href="/loja" class="active">Loja</a>
+                <a href="/portal">Portal</a>
+                <a href="/painel" class="btn-nav"><i class="fa-solid fa-sliders"></i> Painel Dev</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero-shop">
+            <div>
+                <div class="pill"><i class="fa-solid fa-crown"></i> LOJA OFICIAL • REDE RAVOK</div>
+                <h1>LOJA OFICIAL DA <span>REDE RAVOK</span></h1>
+                <p>Fortaleça o desenvolvimento do servidor de Minecraft e desbloqueie VIPs, Gemas, Tags exclusivas e Cosméticos épicos com entrega segura vinculada ao seu nick.</p>
+            </div>
+            <div class="nick-box">
+                <div class="nick-preview">
+                    <img id="mc-avatar" src="https://mc-heads.net/avatar/Steve/64" alt="Skin Minecraft">
+                    <div>
+                        <div style="font-size:0.78rem; color:var(--text-muted);">Jogador selecionado</div>
+                        <div id="mc-nick-label" style="font-weight:800; font-size:1.1rem; color:var(--accent-gold-light);">Digite seu Nick</div>
+                    </div>
+                </div>
+                <input id="mc-nick-input" class="input-mc" placeholder="Seu nick no Minecraft (ex: GuiiLew)" oninput="atualizarNick(this.value)">
+            </div>
+        </div>
+
+        <div class="tabs-row">
+            <div class="cat-tabs">
+                <button class="cat-btn active" onclick="filtrarCat('todos', this)">Todos</button>
+                <button class="cat-btn" onclick="filtrarCat('vip', this)">👑 VIPs</button>
+                <button class="cat-btn" onclick="filtrarCat('gemas', this)">💎 Gemas & Coins</button>
+                <button class="cat-btn" onclick="filtrarCat('cosmeticos', this)">✨ Cosméticos & Tags</button>
+                <button class="cat-btn" onclick="filtrarCat('boosters', this)">⚡ Boosters</button>
+            </div>
+            <button class="cart-pill" onclick="abrirCarrinho()">
+                <i class="fa-solid fa-cart-shopping"></i> Carrinho (<span id="cart-count">0</span>)
+            </button>
+        </div>
+
+        <div class="products-grid" id="grid-produtos"></div>
+    </div>
+
+    <div class="modal-bg" id="modal-cart">
+        <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="color:var(--accent-gold-light);"><i class="fa-solid fa-cart-shopping"></i> Seu Carrinho</h3>
+                <button onclick="fecharCarrinho()" style="background:none; border:none; color:#9aa7c2; font-size:1.2rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="cart-nick-info" style="font-size:0.84rem; color:var(--accent-cyan); margin-bottom:12px;"></div>
+            <div id="cart-items-list" style="margin-bottom:16px;"></div>
+            <div style="display:flex; justify-content:space-between; font-size:1.15rem; font-weight:800; margin-bottom:18px;">
+                <span>Total:</span>
+                <span id="cart-total" style="color:var(--accent-gold);">R$ 0,00</span>
+            </div>
+            <button class="btn-buy" onclick="finalizarPedido()"><i class="fa-brands fa-discord"></i> Finalizar via Ticket no Discord</button>
+            <p style="font-size:0.76rem; color:var(--text-muted); margin-top:10px; text-align:center;">
+                O resumo do pedido será copiado automaticamente para você colar no canal <strong>#📩｜𝗮𝗷𝘂𝗱𝗮</strong> do Discord!
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <strong>REDE RAVOK • RAVOK STUDIOS</strong> — Loja Oficial de Minecraft. Não somos afiliados à Mojang AB.
+    </footer>
+
+    <script>
+        const PRODUTOS = [
+            { id: 'vip-ravok', cat: 'vip', nome: 'VIP RAVOK', tag: 'POPULAR', preco: 19.90, periodo: '/ 30 dias', icon: '👑', itens: ['Tag [RAVOK] exclusiva no chat e TAB', 'Acesso a /fly no lobby e 3 /sethome', 'Kit semanal de sobrevivência', 'Cor exclusiva no Discord (#✨｜vips)'] },
+            { id: 'mvp-dragao', cat: 'vip', nome: 'MVP DRAGÃO', tag: 'DESTAQUE', preco: 39.90, periodo: '/ 30 dias', featured: true, icon: '🐉', itens: ['Tag [DRAGÃO] dourada + brilho no chat', '6 /sethome, /craft, /enderchest e /hat', 'Multiplicador 1.5x de XP e Coins', 'Acesso antecipado a eventos e betas'] },
+            { id: 'lendario-eter', cat: 'vip', nome: 'LENDÁRIO ÉTER', tag: 'PERMANENTE', preco: 79.90, periodo: 'vitalício', featured: true, icon: '⚡', itens: ['Todos os benefícios do MVP Dragão para sempre', 'Tag [ÉTER] animada + Partículas de Dragão', '10 /sethome + prioridade máxima na fila', 'Cargo exclusivo e sala VIP no Discord'] },
+            { id: 'gemas-500', cat: 'gemas', nome: '500 Gemas Ravok', tag: 'MOEDA', preco: 14.90, periodo: 'único', icon: '💎', itens: ['500 Gemas direto na sua conta', 'Use em cosméticos, caixas e upgrades', 'Entrega imediata após confirmação'] },
+            { id: 'gemas-1500', cat: 'gemas', nome: '1.500 Gemas + Bônus', tag: '+20% BÔNUS', preco: 34.90, periodo: 'único', icon: '💠', itens: ['1.500 Gemas + 300 Gemas bônus', 'Ideal para caixas lendárias e pets', 'Entrega imediata após confirmação'] },
+            { id: 'tag-custom', cat: 'cosmeticos', nome: 'Tag Personalizada', tag: 'COSMÉTICO', preco: 12.90, periodo: 'único', icon: '🏷️', itens: ['Escolha uma tag exclusiva no chat', 'Cores personalizadas da paleta Ravok', 'Válida em todo o servidor'] },
+            { id: 'booster-2x', cat: 'boosters', nome: 'Booster Global 2x', tag: 'EVENTO', preco: 15.90, periodo: '1 hora', icon: '🚀', itens: ['Ativa 2x XP e Drops para TODOS os jogadores', 'Anúncio especial com seu nick no servidor', 'Agradecimentos automáticos com bônus'] }
+        ];
+
+        let carrinho = [];
+        let catAtual = 'todos';
+
+        function atualizarNick(val) {
+            const n = val.trim();
+            document.getElementById('mc-nick-label').innerText = n || 'Digite seu Nick';
+            document.getElementById('mc-avatar').src = `https://mc-heads.net/avatar/${encodeURIComponent(n || 'Steve')}/64`;
+        }
+
+        function filtrarCat(cat, btn) {
+            catAtual = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProdutos();
+        }
+
+        function renderProdutos() {
+            const grid = document.getElementById('grid-produtos');
+            const lista = catAtual === 'todos' ? PRODUTOS : PRODUTOS.filter(p => p.cat === catAtual);
+            grid.innerHTML = lista.map(p => `
+                <div class="prod-card ${p.featured ? 'featured' : ''}">
+                    <div>
+                        <div class="prod-top">
+                            <div class="prod-icon">${p.icon}</div>
+                            <span class="prod-tag">${p.tag}</span>
+                        </div>
+                        <h3>${p.nome}</h3>
+                        <div class="prod-price">R$ ${p.preco.toFixed(2).replace('.', ',')} <small>${p.periodo}</small></div>
+                        <ul class="prod-list">
+                            ${p.itens.map(i => `<li><i class="fa-solid fa-check"></i> ${i}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <button class="btn-buy" onclick="addCarrinho('${p.id}')"><i class="fa-solid fa-plus"></i> Adicionar ao Carrinho</button>
+                </div>
+            `).join('');
+        }
+
+        function addCarrinho(id) {
+            const p = PRODUTOS.find(x => x.id === id);
+            if (!p) return;
+            carrinho.push(p);
+            document.getElementById('cart-count').innerText = carrinho.length;
+        }
+
+        function abrirCarrinho() {
+            const nick = document.getElementById('mc-nick-input').value.trim() || '(não informado)';
+            document.getElementById('cart-nick-info').innerText = `⛏️ Nick Minecraft: ${nick}`;
+            const list = document.getElementById('cart-items-list');
+            if (!carrinho.length) {
+                list.innerHTML = '<p style="color:var(--text-muted); font-size:0.88rem;">Seu carrinho está vazio.</p>';
+            } else {
+                list.innerHTML = carrinho.map((p, idx) => `
+                    <div class="cart-item">
+                        <span>${p.icon} ${p.nome}</span>
+                        <span>R$ ${p.preco.toFixed(2).replace('.', ',')} <button onclick="removerItem(${idx})" style="background:none;border:none;color:#ef4444;cursor:pointer;margin-left:8px;"><i class="fa-solid fa-trash"></i></button></span>
+                    </div>
+                `).join('');
+            }
+            const total = carrinho.reduce((a, b) => a + b.preco, 0);
+            document.getElementById('cart-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('modal-cart').style.display = 'flex';
+        }
+
+        function removerItem(idx) {
+            carrinho.splice(idx, 1);
+            document.getElementById('cart-count').innerText = carrinho.length;
+            abrirCarrinho();
+        }
+
+        function fecharCarrinho() {
+            document.getElementById('modal-cart').style.display = 'none';
+        }
+
+        function finalizarPedido() {
+            if (!carrinho.length) return alert('Adicione pelo menos um item ao carrinho!');
+            const nick = document.getElementById('mc-nick-input').value.trim();
+            if (!nick) {
+                fecharCarrinho();
+                document.getElementById('mc-nick-input').focus();
+                return alert('Digite seu nick do Minecraft antes de finalizar!');
+            }
+            const total = carrinho.reduce((a, b) => a + b.preco, 0);
+            const resumo = `PEDIDO REDE RAVOK | Nick: ${nick} | Itens: ${carrinho.map(p => p.nome).join(', ')} | Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+            navigator.clipboard?.writeText(resumo);
+            alert('Resumo do pedido copiado!\n\n' + resumo + '\n\nAbra um ticket no canal #📩｜𝗮𝗷𝘂𝗱𝗮 do nosso Discord e cole o resumo para concluir.');
+            fecharCarrinho();
+        }
+
+        renderProdutos();
+    </script>
+</body>
+</html>
