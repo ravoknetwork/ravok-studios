@@ -205,26 +205,30 @@
             <p>Rede Ravok • 100% Minecraft</p>
         </div>
         <nav>
-            <div class="nav-section-label">Servidor & Bot</div>
-            <a onclick="abrirAba('aba-visao', this)" class="nav-item active"><i class="fa-solid fa-bolt"></i> Home & Criar Servidor</a>
-            <a onclick="abrirAba('aba-mc-status', this); carregarStatusMinecraft();" class="nav-item"><i class="fa-solid fa-server"></i> Status Minecraft</a>
-            <a onclick="abrirAba('aba-paineis', this)" class="nav-item"><i class="fa-solid fa-cubes"></i> Sistemas & Modais Discord</a>
-            <a onclick="abrirAba('aba-acoes', this)" class="nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Eventos, Limpeza & Bênção</a>
+            <div class="nav-section-label">🎮 Servidor Minecraft (Jogo)</div>
+            <a onclick="abrirAba('aba-mc-status', this); carregarStatusMinecraft();" class="nav-item"><i class="fa-solid fa-server"></i> Status & IP Minecraft</a>
+            <a onclick="abrirAba('aba-jogo-bridge', this); carregarEntregasJogo();" class="nav-item"><i class="fa-solid fa-plug"></i> Ponte RavokSite.jar</a>
 
-            <div class="nav-section-label">Equipe Dev (Minecraft)</div>
+            <div class="nav-section-label">🛒 Site & Loja Oficial</div>
+            <a onclick="abrirAba('aba-pedidos', this); carregarPedidosLoja();" class="nav-item"><i class="fa-solid fa-receipt"></i> Pedidos & Aprovações</a>
+            <a href="/" target="_blank" class="nav-item" style="color: var(--accent-cyan);"><i class="fa-solid fa-globe"></i> Site Principal</a>
+            <a href="/loja" target="_blank" class="nav-item" style="color: var(--accent-cyan);"><i class="fa-solid fa-cart-shopping"></i> Loja Oficial</a>
+            <a href="/portal" target="_blank" class="nav-item" style="color: var(--accent-cyan);"><i class="fa-solid fa-lightbulb"></i> Portal</a>
+
+            <div class="nav-section-label">💬 Discord (Bot & Canais)</div>
+            <a onclick="abrirAba('aba-visao', this)" class="nav-item active"><i class="fa-solid fa-bolt"></i> Home & Construtor Discord</a>
+            <a onclick="abrirAba('aba-paineis', this)" class="nav-item"><i class="fa-solid fa-cubes"></i> Sistemas & Modais Discord</a>
+            <a onclick="abrirAba('aba-acoes', this)" class="nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Eventos, Limpeza & Staff-Log</a>
+            <a onclick="abrirAba('aba-uploads', this); carregarGaleria();" class="nav-item"><i class="fa-solid fa-images"></i> Galeria & Banners</a>
+
+            <div class="nav-section-label">⚔️ Equipe Staff & Dev</div>
             <a onclick="abrirAba('aba-afazeres', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-list-check"></i> Afazeres (Kanban)</a>
             <a onclick="abrirAba('aba-ideias', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-lightbulb"></i> Painel de Ideias</a>
             <a onclick="abrirAba('aba-lore', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-book-journal-whills"></i> Lore & História</a>
-            <a onclick="abrirAba('aba-progresso', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-chart-line"></i> Progresso do Jogo</a>
+            <a onclick="abrirAba('aba-progresso', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-chart-line"></i> Progresso do Servidor</a>
             <a onclick="abrirAba('aba-cargos', this); carregarDadosDiscord();" class="nav-item"><i class="fa-solid fa-user-shield"></i> Cargos & Equipe</a>
-
-            <div class="nav-section-label">Mídia & Sistema</div>
-            <a onclick="abrirAba('aba-uploads', this); carregarGaleria();" class="nav-item"><i class="fa-solid fa-images"></i> Galeria de Mídia</a>
             <a onclick="abrirAba('aba-config', this)" class="nav-item"><i class="fa-solid fa-gear"></i> Configurações</a>
             <a onclick="abrirAba('aba-staff', this); carregarUsuarios();" class="nav-item"><i class="fa-solid fa-users-gear"></i> Acessos Painel</a>
-            <a href="/" target="_blank" class="nav-item" style="color: var(--accent-cyan);"><i class="fa-solid fa-globe"></i> Ver Site Público</a>
-            <a href="/loja" target="_blank" class="nav-item" style="color: var(--accent-cyan);"><i class="fa-solid fa-cart-shopping"></i> Loja Oficial</a>
-            <a href="/portal" target="_blank" class="nav-item" style="color: var(--accent-cyan);"><i class="fa-solid fa-lightbulb"></i> Portal</a>
             <a onclick="localStorage.removeItem('ravok_user'); localStorage.removeItem('ravok_pass'); location.reload();" class="nav-item" style="color:var(--danger)"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
         </nav>
     </aside>
@@ -724,6 +728,51 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA: PONTE RAVOKSITE.JAR & ENTREGAS NO JOGO ==================== -->
+        <div id="aba-jogo-bridge" class="secao-aba">
+            <div class="grid-2">
+                <div class="card card-glow">
+                    <div class="card-title"><i class="fa-solid fa-plug text-cyan"></i> Integração RavokSite.jar (Minecraft ↔ Site)</div>
+                    <div class="card-desc">
+                        O plugin <strong>RavokSite.jar</strong> instalado no seu servidor de Minecraft se conecta automaticamente a este painel via <code>/api/delivery/pending</code> e entrega os itens quando o jogador usa <code>/resgatar</code>!
+                    </div>
+                    <div class="form-group">
+                        <label>🔑 Token de Segurança da API (api_token)</label>
+                        <input type="text" id="bridge-token" class="input-dark" value="ravok_sec_99a8b7c6d5e4">
+                    </div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;">
+                        <button onclick="salvarTokenBridge()" class="btn btn-primary btn-sm"><i class="fa-solid fa-key"></i> Salvar Token</button>
+                        <a href="/api/admin/server/download-config" class="btn btn-cyan btn-sm"><i class="fa-solid fa-download"></i> Baixar config.yml Pronto</a>
+                    </div>
+                    <hr style="border-color: var(--border-subtle); margin: 16px 0;">
+                    <div class="card-title" style="font-size:1rem;"><i class="fa-solid fa-gift text-cyan"></i> Enviar Entrega Direta para o /resgatar</div>
+                    <div class="form-group"><label>⛏️ Nick Minecraft do Jogador</label><input type="text" id="deliv-nick" class="input-dark" placeholder="Ex: GuiiLew"></div>
+                    <div class="form-group"><label>📦 Nome do Item (exibido no /resgatar)</label><input type="text" id="deliv-nome" class="input-dark" placeholder="Ex: VIP VENDAVAL"></div>
+                    <div class="form-group"><label>💻 Comando Console ({player} será substituído)</label><input type="text" id="deliv-cmd" class="input-dark" placeholder="Ex: lp user {player} parent settrack rank knight"></div>
+                    <button onclick="enviarEntregaTeste()" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i> Enfileirar no /resgatar Agora</button>
+                </div>
+                <div class="card">
+                    <div class="card-title" style="justify-content:space-between;">
+                        <span><i class="fa-solid fa-boxes-packing text-cyan"></i> Fila de Entregas (/resgatar)</span>
+                        <button onclick="carregarEntregasJogo()" class="btn btn-primary btn-sm"><i class="fa-solid fa-rotate"></i></button>
+                    </div>
+                    <div id="lista-entregas-jogo" style="display:flex; flex-direction:column; gap:10px; max-height:460px; overflow-y:auto;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA: PEDIDOS DA LOJA & APROVAÇÕES ==================== -->
+        <div id="aba-pedidos" class="secao-aba">
+            <div class="card card-glow">
+                <div class="card-title" style="justify-content:space-between;">
+                    <span><i class="fa-solid fa-receipt text-cyan"></i> Pedidos da Loja Oficial</span>
+                    <button onclick="carregarPedidosLoja()" class="btn btn-primary btn-sm"><i class="fa-solid fa-rotate"></i> Atualizar</button>
+                </div>
+                <div class="card-desc">Quando um jogador fecha o carrinho em <strong>/loja</strong>, o pedido aparece aqui. Clique em <strong>Aprovar & Entregar</strong> para enviar automaticamente os comandos para o <code>/resgatar</code> no Minecraft!</div>
+                <div id="lista-pedidos-loja" style="display:flex; flex-direction:column; gap:12px;"></div>
             </div>
         </div>
     </main>
@@ -1387,6 +1436,69 @@
             } catch (e) {
                 showToast("Falha de conexão com a API do Bot!", "error");
             }
+        }
+
+        async function carregarEntregasJogo() {
+            try {
+                const r = await fetch(`${API_URL}/admin/deliveries`, { headers: getAuthHeaders() });
+                const d = await r.json();
+                if (d.api_token) document.getElementById('bridge-token').value = d.api_token;
+                const box = document.getElementById('lista-entregas-jogo');
+                const list = d.deliveries || [];
+                if (!list.length) { box.innerHTML = '<p style="color:var(--text-muted); font-size:0.86rem;">Nenhuma entrega na fila.</p>'; return; }
+                box.innerHTML = list.map(i => `
+                    <div class="dev-item-card" style="margin-bottom:0; border-left-color:${i.status === 'delivered' ? '#22c55e' : '#f5c542'};">
+                        <div class="dev-meta">
+                            <span class="tag tag-cyan">#${i.id}</span>
+                            <span class="tag">${i.nick}</span>
+                            <span class="tag ${i.status === 'delivered' ? 'tag-green' : 'tag-yellow'}">${i.status === 'delivered' ? '✅ Entregue' : '⏳ Aguardando /resgatar'}</span>
+                        </div>
+                        <h4>${i.product_name}</h4>
+                        <p style="font-family:Consolas,monospace; font-size:0.78rem;">${i.command}</p>
+                    </div>
+                `).join('');
+            } catch (e) {}
+        }
+
+        async function salvarTokenBridge() {
+            await postJson('/admin/server/token', { api_token: document.getElementById('bridge-token').value.trim() });
+        }
+
+        async function enviarEntregaTeste() {
+            await postJson('/admin/delivery/test', {
+                nick: document.getElementById('deliv-nick').value.trim(),
+                product_name: document.getElementById('deliv-nome').value.trim(),
+                command: document.getElementById('deliv-cmd').value.trim()
+            });
+            carregarEntregasJogo();
+        }
+
+        async function carregarPedidosLoja() {
+            try {
+                const r = await fetch(`${API_URL}/admin/orders`, { headers: getAuthHeaders() });
+                const d = await r.json();
+                const box = document.getElementById('lista-pedidos-loja');
+                const list = d.orders || [];
+                if (!list.length) { box.innerHTML = '<p style="color:var(--text-muted); font-size:0.88rem;">Nenhum pedido registrado ainda.</p>'; return; }
+                box.innerHTML = list.map(o => `
+                    <div class="dev-item-card" style="margin-bottom:0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                        <div>
+                            <div class="dev-meta">
+                                <span class="tag tag-cyan">${o.id}</span>
+                                <span class="tag">⛏️ ${o.nick}</span>
+                                <span class="tag ${o.status === 'aprovado' ? 'tag-green' : 'tag-yellow'}">${o.status.toUpperCase()}</span>
+                                <span class="tag">${o.delivery_status || ''}</span>
+                            </div>
+                            <h4>${(o.items || []).map(i => i.name).join(' + ')} — R$ ${Number(o.total || 0).toFixed(2).replace('.', ',')}</h4>
+                            <p style="margin-bottom:0;">Criado em: ${o.criado_em || ''}</p>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            ${o.status !== 'aprovado' ? `<button onclick="postJson('/admin/orders/${o.id}/approve', {}).then(carregarPedidosLoja)" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i> Aprovar & Entregar no Jogo</button>` : ''}
+                            <button onclick="fetch('${API_URL}/admin/orders/${o.id}', {method:'DELETE', headers:getAuthHeaders()}).then(carregarPedidosLoja)" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {}
         }
 
         function showToast(msg, tipo = 'success') {
