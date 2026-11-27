@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAVOK STUDIOS — Roblox Game Development Studio</title>
+    <title>RAVOK STUDIOS — Estúdio de Criação Minecraft & Projetos</title>
     <link rel="icon" type="image/jpeg" href="/assets/logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-main: #060911;
-            --bg-card: #0e1422;
+            --bg-card: #0b1224;
+            --bg-card-deep: #080e1d;
+            --accent-gold: #f5c542;
+            --accent-gold-light: #ffe9a0;
+            --accent-navy: #123a8f;
             --accent-cyan: #00d2ff;
-            --accent-blue: #4f46e5;
-            --accent-purple: #a855f7;
+            --accent-sky: #bfe0ff;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-cyan: rgba(0, 210, 255, 0.2);
-            --border-subtle: rgba(255, 255, 255, 0.06);
+            --text-muted: #9eb0cf;
+            --border-gold: rgba(245, 197, 66, 0.28);
+            --border-cyan: rgba(0, 210, 255, 0.22);
+            --border-subtle: rgba(191, 224, 255, 0.08);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
             background-image:
-                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.08) 0%, transparent 35%),
-                radial-gradient(circle at 85% 30%, rgba(79, 70, 229, 0.09) 0%, transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(18, 58, 143, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 15% 25%, rgba(245, 197, 66, 0.06) 0%, transparent 35%),
+                radial-gradient(circle at 85% 35%, rgba(0, 210, 255, 0.07) 0%, transparent 38%);
             min-height: 100vh;
         }
 
@@ -35,37 +40,59 @@
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(14px);
-            background: rgba(6, 9, 17, 0.82);
-            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(6, 9, 17, 0.88);
+            border-bottom: 1px solid var(--border-gold);
         }
         .nav-container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 18px 28px;
+            padding: 15px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; text-decoration: none; color: white; display: flex; align-items: center; gap: 10px; }
-        .brand span { color: var(--accent-cyan); text-shadow: 0 0 15px rgba(0, 210, 255, 0.45); }
-        .nav-links { display: flex; gap: 28px; align-items: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: 0.2s; }
-        .nav-links a:hover { color: var(--accent-cyan); }
+        .brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.45rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            color: var(--accent-gold-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand span { color: var(--accent-cyan); font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 2.5px; }
+        .nav-links { display: flex; gap: 26px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.2s; }
+        .nav-links a:hover { color: var(--accent-gold); }
         .btn-nav {
-            background: linear-gradient(135deg, var(--accent-cyan), #06b6d4);
-            color: #04070f !important;
+            background: linear-gradient(135deg, var(--accent-gold), #d99b16);
+            color: #060911 !important;
             font-weight: 700 !important;
             padding: 10px 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+            box-shadow: 0 0 22px rgba(245, 197, 66, 0.28);
         }
 
         /* HERO */
         .hero {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 85px 28px 65px;
+            padding: 55px 28px 65px;
             text-align: center;
+        }
+        .hero-logo-wrap {
+            margin: 0 auto 22px;
+            max-width: 340px;
+            position: relative;
+        }
+        .hero-logo-wrap img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 0 50px rgba(18, 58, 143, 0.45), 0 0 25px rgba(245, 197, 66, 0.14);
         }
         .pill-badge {
             display: inline-flex;
@@ -73,48 +100,50 @@
             gap: 8px;
             padding: 7px 18px;
             border-radius: 99px;
-            background: rgba(0, 210, 255, 0.1);
-            border: 1px solid var(--border-cyan);
-            color: var(--accent-cyan);
-            font-size: 0.82rem;
+            background: rgba(245, 197, 66, 0.1);
+            border: 1px solid var(--border-gold);
+            color: var(--accent-gold-light);
+            font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-        .hero h1 {
-            font-size: clamp(2.4rem, 5vw, 4.3rem);
-            font-weight: 900;
-            line-height: 1.12;
             margin-bottom: 20px;
         }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.1rem, 4.5vw, 3.7rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
         .hero h1 span {
-            background: linear-gradient(90deg, #00d2ff, #6366f1, #a855f7);
+            background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .hero p {
-            max-width: 720px;
-            margin: 0 auto 36px;
+            max-width: 740px;
+            margin: 0 auto 34px;
             color: var(--text-muted);
-            font-size: 1.08rem;
-            line-height: 1.65;
+            font-size: 1.03rem;
+            line-height: 1.7;
         }
         .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn-hero {
-            padding: 15px 30px;
+            padding: 14px 28px;
             border-radius: 12px;
             font-weight: 700;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             transition: 0.25s;
         }
-        .btn-hero:hover { transform: translateY(-2px); }
-        .btn-cyan-hero { background: linear-gradient(135deg, #00d2ff, #0284c7); color: #050811; box-shadow: 0 10px 30px rgba(0, 210, 255, 0.28); }
-        .btn-dark-hero { background: var(--bg-card); color: white; border: 1px solid var(--border-cyan); }
+        .btn-hero:hover { transform: translateY(-2px); filter: brightness(1.08); }
+        .btn-gold-hero { background: linear-gradient(135deg, var(--accent-gold), #c78c12); color: #060911; box-shadow: 0 10px 30px rgba(245, 197, 66, 0.24); }
+        .btn-navy-hero { background: linear-gradient(135deg, #0d1d42, #0b1224); color: var(--accent-sky); border: 1px solid var(--border-cyan); }
 
         /* STATS STRIP */
         .stats-strip {
@@ -126,39 +155,69 @@
             gap: 20px;
         }
         .stat-box {
-            background: var(--bg-card);
+            background: linear-gradient(160deg, #0d162d 0%, #080d1a 100%);
             border: 1px solid var(--border-subtle);
+            border-bottom: 2px solid var(--border-gold);
             border-radius: 16px;
             padding: 24px;
             text-align: center;
         }
-        .stat-box h3 { font-size: 2.2rem; font-weight: 800; color: var(--accent-cyan); }
-        .stat-box p { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+        .stat-box h3 { font-size: 2.1rem; font-weight: 800; color: var(--accent-gold); }
+        .stat-box p { font-size: 0.84rem; color: var(--text-muted); margin-top: 4px; }
 
         /* SECTIONS */
         section { max-width: 1280px; margin: 0 auto 85px; padding: 0 28px; }
-        .section-header { text-align: center; margin-bottom: 44px; }
-        .section-header h2 { font-size: 2.1rem; font-weight: 800; margin-bottom: 10px; }
+        .section-header { text-align: center; margin-bottom: 42px; }
+        .section-header h2 { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900; margin-bottom: 10px; letter-spacing: 0.8px; }
         .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* FOCUS / PROJECTS CARDS */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+        .project-card {
+            background: linear-gradient(155deg, #0e1832 0%, #080d1b 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card.main-focus { border-color: var(--border-gold); box-shadow: 0 12px 40px rgba(245, 197, 66, 0.08); }
+        .project-card.test-focus { border-color: var(--border-cyan); }
+        .project-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 99px;
+            margin-bottom: 14px;
+        }
+        .badge-gold { background: rgba(245, 197, 66, 0.16); color: var(--accent-gold-light); border: 1px solid var(--border-gold); }
+        .badge-cyan { background: rgba(0, 210, 255, 0.12); color: var(--accent-cyan); border: 1px solid var(--border-cyan); }
+        .project-card h3 { font-size: 1.45rem; font-weight: 800; margin-bottom: 12px; }
+        .project-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .ptag { font-size: 0.76rem; padding: 5px 11px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: var(--accent-sky); border: 1px solid var(--border-subtle); }
 
         /* PROGRESS TRACKER */
         .tracker-card {
-            background: linear-gradient(145deg, #0f1626 0%, #0b101c 100%);
-            border: 1px solid var(--border-cyan);
+            background: linear-gradient(145deg, #0d162e 0%, #080d1b 100%);
+            border: 1px solid var(--border-gold);
             border-radius: 20px;
             padding: 36px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
         }
-        .overall-bar-wrap { margin-bottom: 36px; }
+        .overall-bar-wrap { margin-bottom: 34px; }
         .overall-bar-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
-        .overall-bar-bg { width: 100%; height: 18px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
-        .overall-bar-fill { height: 100%; background: linear-gradient(90deg, #4f46e5, #00d2ff); border-radius: 99px; transition: width 0.6s ease; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+        .overall-bar-bg { width: 100%; height: 18px; background: rgba(255, 255, 255, 0.06); border-radius: 99px; overflow: hidden; border: 1px solid var(--border-subtle); }
+        .overall-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-navy), var(--accent-cyan), var(--accent-gold)); border-radius: 99px; transition: width 0.6s ease; box-shadow: 0 0 18px rgba(245, 197, 66, 0.45); }
 
         .dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
-        .dept-item { background: rgba(0,0,0,0.32); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 20px; }
+        .dept-item { background: rgba(6, 9, 17, 0.65); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 20px; }
         .dept-top { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
-        .dept-bar-bg { width: 100%; height: 10px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; margin-bottom: 10px; }
-        .dept-bar-fill { height: 100%; background: linear-gradient(90deg, #00d2ff, #a855f7); border-radius: 99px; }
+        .dept-bar-bg { width: 100%; height: 10px; background: rgba(255, 255, 255, 0.06); border-radius: 99px; overflow: hidden; margin-bottom: 10px; }
+        .dept-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-gold)); border-radius: 99px; }
         .dept-detail { font-size: 0.82rem; color: var(--text-muted); }
 
         /* LORE GRID */
@@ -166,29 +225,30 @@
         .lore-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            border-top: 3px solid var(--accent-purple);
+            border-top: 3px solid var(--accent-gold);
             border-radius: 16px;
             padding: 28px;
             transition: 0.25s;
         }
-        .lore-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
-        .lore-tag { display: inline-block; font-size: 0.72rem; padding: 4px 10px; border-radius: 6px; background: rgba(168, 85, 247, 0.15); color: #c084fc; font-weight: 700; margin-bottom: 12px; }
-        .lore-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .lore-card:hover { transform: translateY(-4px); border-color: var(--accent-gold); }
+        .lore-tag { display: inline-block; font-size: 0.72rem; padding: 4px 10px; border-radius: 6px; background: rgba(245, 197, 66, 0.14); color: var(--accent-gold-light); font-weight: 700; margin-bottom: 12px; }
+        .lore-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--accent-gold-light); }
         .lore-quote { font-size: 0.86rem; color: var(--accent-cyan); font-style: italic; margin-bottom: 14px; }
         .lore-body { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; white-space: pre-line; }
 
         /* DEPARTMENTS / ROLES */
         .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .role-box { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 22px; }
-        .role-box h4 { font-size: 1.05rem; margin-bottom: 8px; color: var(--accent-cyan); }
-        .role-box p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+        .role-box { background: var(--bg-card); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent-gold); border-radius: 14px; padding: 22px; }
+        .role-box h4 { font-size: 1.04rem; margin-bottom: 8px; color: var(--accent-gold-light); }
+        .role-box p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; }
 
         footer {
-            border-top: 1px solid var(--border-subtle);
+            border-top: 1px solid var(--border-gold);
             padding: 40px 28px;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.85rem;
+            background: #04070d;
         }
     </style>
 </head>
@@ -196,39 +256,43 @@
 
     <header>
         <div class="nav-container">
-            <a href="/" class="brand"><img src="/assets/logo.jpg" alt="Ravok Studios" style="width:42px; height:42px; border-radius:10px; border:1px solid rgba(0,210,255,0.4);"> RAVOK <span>STUDIOS</span></a>
+            <a href="/" class="brand">
+                <img src="/assets/logo.jpg" alt="Ravok Studios" style="width:42px; height:42px; border-radius:10px; border:1px solid var(--border-gold);">
+                RAVOK <span>STUDIOS</span>
+            </a>
             <nav class="nav-links">
+                <a href="#projetos">Projetos</a>
                 <a href="#progresso">Progresso Live</a>
                 <a href="#lore">Universo & Lore</a>
-                <a href="#equipe">Departamentos</a>
+                <a href="#equipe">Equipe</a>
                 <a href="/painel.html" class="btn-nav"><i class="fa-solid fa-sliders"></i> Central Dev / Painel</a>
             </nav>
         </div>
     </header>
 
     <div class="hero">
-        <div style="margin-bottom: 24px;">
-            <img src="/assets/logo_full.jpg" alt="Logo Ravok Studios" style="max-width: 380px; width: 100%; height: auto; border-radius: 22px; border: 1px solid rgba(0, 210, 255, 0.35); box-shadow: 0 0 40px rgba(0, 210, 255, 0.22);">
+        <div class="hero-logo-wrap">
+            <img src="/assets/logo_full.jpg" alt="RAVOK STUDIOS — Logo Oficial em Pixel Art">
         </div>
-        <div class="pill-badge" id="hero-fase"><i class="fa-solid fa-fire"></i> ROBLOX STUDIO • EM DESENVOLVIMENTO</div>
-        <h1>FORJANDO O NOVO UNIVERSO<br><span id="hero-jogo">RAVOK STUDIOS NO ROBLOX</span></h1>
+        <div class="pill-badge" id="hero-fase"><i class="fa-solid fa-cubes"></i> FOCO MINECRAFT • ESTÚDIO DE CRIAÇÃO</div>
+        <h1>FORJANDO MUNDOS ÉPICOS NO<br><span id="hero-jogo">MINECRAFT & PROJETOS RAVOK</span></h1>
         <p id="hero-nota">
-            Acompanhe em tempo real o progresso de desenvolvimento, capítulos oficiais da Lore, sistemas em Luau, modelagem 3D e atualizações diretamente sincronizadas com o nosso Bot e Equipe no Discord.
+            O <strong>RAVOK STUDIOS</strong> é focado na criação de experiências épicas no <strong>Minecraft</strong> — servidores, mapas autorais, modelos 3D no Blockbench, texturas, plugins e lore — mantendo o <strong>Roblox</strong> como nosso laboratório de projeto teste.
         </p>
         <div class="hero-btns">
-            <a href="#progresso" class="btn-hero btn-cyan-hero"><i class="fa-solid fa-chart-line"></i> Ver Progresso do Jogo</a>
-            <a href="/painel.html" class="btn-hero btn-dark-hero"><i class="fa-solid fa-terminal"></i> Abrir Painel da Equipe</a>
+            <a href="#progresso" class="btn-hero btn-gold-hero"><i class="fa-solid fa-chart-line"></i> Ver Progresso do Estúdio</a>
+            <a href="/painel.html" class="btn-hero btn-navy-hero"><i class="fa-solid fa-terminal"></i> Abrir Central da Equipe</a>
         </div>
     </div>
 
     <div class="stats-strip">
         <div class="stat-box">
             <h3 id="stat-geral">0%</h3>
-            <p>Progresso Geral da Build</p>
+            <p>Progresso Geral do Projeto</p>
         </div>
         <div class="stat-box">
             <h3 id="stat-tasks">0</h3>
-            <p>Sistemas & Tarefas no Quadro</p>
+            <p>Afazeres & Tarefas no Quadro</p>
         </div>
         <div class="stat-box">
             <h3 id="stat-ideias">0</h3>
@@ -240,10 +304,47 @@
         </div>
     </div>
 
+    <section id="projetos">
+        <div class="section-header">
+            <h2>⚔️ FRENTES DO <span style="color: var(--accent-gold);">RAVOK STUDIOS</span></h2>
+            <p>Nossa realidade de produção: foco total em Minecraft e laboratório experimental no Roblox</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card main-focus">
+                <span class="project-badge badge-gold">⭐ FOCO PRINCIPAL</span>
+                <h3>⛏️ Minecraft — Servidores & Universos</h3>
+                <p>
+                    Nosso coração criativo. Desenvolvemos servidores completos de Minecraft com mapas épicos, dungeons, bosses customizados em Blockbench, resource packs exclusivos, plugins/Skripts sob medida e eventos com história própria.
+                </p>
+                <div class="project-tags">
+                    <span class="ptag">Paper / Spigot</span>
+                    <span class="ptag">Plugins & Skript</span>
+                    <span class="ptag">Blockbench 3D</span>
+                    <span class="ptag">Resource Packs</span>
+                    <span class="ptag">Builds & Dungeons</span>
+                </div>
+            </div>
+
+            <div class="project-card test-focus">
+                <span class="project-badge badge-cyan">🧪 PROJETO TESTE</span>
+                <h3>🎮 Roblox — Laboratório Experimental</h3>
+                <p>
+                    Frente paralela de testes e prototipagem do estúdio. Exploramos mecânicas em Luau, interface e conceitos novos no Roblox Studio sem tirar o foco principal dos nossos projetos de Minecraft.
+                </p>
+                <div class="project-tags">
+                    <span class="ptag">Protótipo / Teste</span>
+                    <span class="ptag">Roblox Studio</span>
+                    <span class="ptag">Luau Experimental</span>
+                    <span class="ptag">P&D do Estúdio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="progresso">
         <div class="section-header">
-            <h2>📊 DEV TRACKER <span style="color: var(--accent-cyan);">EM TEMPO REAL</span></h2>
-            <p>Sincronizado automaticamente com o canal <strong>#📊・progresso</strong> e <strong>#🖥️・status</strong> do Discord</p>
+            <h2>📊 DEV TRACKER <span style="color: var(--accent-gold);">EM TEMPO REAL</span></h2>
+            <p>Sincronizado automaticamente com os canais <strong>#📊｜progresso</strong> e <strong>#🖥️｜status</strong> do Discord</p>
         </div>
 
         <div class="tracker-card">
@@ -251,9 +352,9 @@
                 <div class="overall-bar-header">
                     <div>
                         <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700; text-transform: uppercase;" id="trk-versao">BUILD v0.0.1-INÍCIO</span>
-                        <h3 style="font-size: 1.4rem;">Progresso Total rumo ao Lançamento</h3>
+                        <h3 style="font-size: 1.4rem;">Progresso Total do Estúdio</h3>
                     </div>
-                    <span style="font-size: 2rem; font-weight: 900; color: var(--accent-cyan);" id="trk-pct">0%</span>
+                    <span style="font-size: 2rem; font-weight: 900; color: var(--accent-gold);" id="trk-pct">0%</span>
                 </div>
                 <div class="overall-bar-bg">
                     <div class="overall-bar-fill" id="trk-bar" style="width: 0%;"></div>
@@ -266,7 +367,7 @@
 
     <section id="lore">
         <div class="section-header">
-            <h2>📖 UNIVERSO & <span style="color: var(--accent-purple);">LORE OFICIAL</span></h2>
+            <h2>📖 UNIVERSO & <span style="color: var(--accent-gold);">LORE OFICIAL</span></h2>
             <p>Histórias, facções e capítulos publicados pela nossa equipe criativa via Discord e Painel</p>
         </div>
         <div class="lore-grid" id="public-lore-grid"></div>
@@ -274,25 +375,25 @@
 
     <section id="equipe">
         <div class="section-header">
-            <h2>🛠️ ESTRUTURA DA <span style="color: var(--accent-cyan);">EQUIPE DE DESENVOLVIMENTO</span></h2>
-            <p>Nossos departamentos especializados dentro do Roblox Studio e Discord</p>
+            <h2>🛠️ DEPARTAMENTOS DO <span style="color: var(--accent-cyan);">RAVOK STUDIOS</span></h2>
+            <p>Nossa equipe organizada no Discord para construir projetos de alto nível no Minecraft (e testes no Roblox)</p>
         </div>
         <div class="roles-grid">
-            <div class="role-box"><h4>📜 Scripters (Luau)</h4><p>Arquitetura client-server, sistemas de combate, DataStore, inteligência artificial de bosses e otimização.</p></div>
-            <div class="role-box"><h4>🏗️ Builders & Level Design</h4><p>Construção de mundos, ambientação, iluminação atmosférica e arenas imersivas no Roblox Studio.</p></div>
-            <div class="role-box"><h4>🧊 Modeladores 3D</h4><p>Criação de armas, armaduras, criaturas e assets low/mid-poly otimizados no Blender.</p></div>
-            <div class="role-box"><h4>🎨 UI / UX Designers</h4><p>Interfaces modernas, HUDs responsivas, animações de menu e experiência do jogador.</p></div>
-            <div class="role-box"><h4>✨ VFX, SFX & Animadores</h4><p>Efeitos visuais de habilidades, partículas customizadas, rigging R15/Custom e cutscenes.</p></div>
-            <div class="role-box"><h4>📖 Lore & QA Testers</h4><p>Criação de narrativa, diálogos de NPCs, balanceamento de progressão e caça a bugs.</p></div>
+            <div class="role-box"><h4>📜 Dev / Plugins & Scripts</h4><p>Configuração de servidores Minecraft, Plugins Java, Skripts, automação e testes experimentais em Luau.</p></div>
+            <div class="role-box"><h4>🏗️ Builders & Level Design</h4><p>Construção de Spawns, Dungeons, ilhas flutuantes, arenas e ambientação cinematográfica no Minecraft.</p></div>
+            <div class="role-box"><h4>🧊 Modeladores 3D & Texturas</h4><p>Criação de armas, armaduras, bosses e itens customizados em Blockbench, Pixel Art e Resource Packs.</p></div>
+            <div class="role-box"><h4>🎨 UI / UX & Menus</h4><p>Menus interativos (DeluxeMenus/HUDs), ícones em pixel art, identidade visual e experiência do jogador.</p></div>
+            <div class="role-box"><h4>✨ VFX, SFX & Animações</h4><p>Animações de bosses (ModelEngine), partículas de habilidades, efeitos sonoros e cutscenes.</p></div>
+            <div class="role-box"><h4>📖 Lore & QA Testers</h4><p>Construção do universo Ravok, quests, diálogos de NPCs, balanceamento e caça a bugs.</p></div>
         </div>
     </section>
 
     <footer>
-        <p>⚡ <strong>RAVOK STUDIOS</strong> • Ecossistema Integrado (Discord Bot + Painel Dev + Site Oficial)</p>
+        <p>⚔️ <strong>RAVOK STUDIOS</strong> • Foco em Minecraft & Projetos Experimentais • Sincronizado com Discord Bot RAVOK</p>
     </footer>
 
     <script>
-        const API_URL = (window.location.protocol.startsWith('http') ? window.location.origin : "http://localhost:25611") + "/api";
+        const API_URL = (window.location.protocol.startsWith('http') ? window.location.origin : "http://localhost:25746") + "/api";
 
         async function carregarSitePublico() {
             try {
@@ -300,7 +401,7 @@
                 const data = await r.json();
                 if (data.status !== "sucesso") return;
 
-                document.getElementById('hero-fase').innerHTML = `<i class="fa-solid fa-fire"></i> ${data.fase} • ${data.genero}`;
+                document.getElementById('hero-fase').innerHTML = `<i class="fa-solid fa-cubes"></i> ${data.fase} • ${data.genero}`;
                 document.getElementById('hero-jogo').innerText = data.jogo;
                 if (data.progresso && data.progresso.nota_dev) {
                     document.getElementById('hero-nota').innerText = data.progresso.nota_dev;
@@ -310,7 +411,7 @@
                 document.getElementById('stat-geral').innerText = pct + '%';
                 document.getElementById('trk-pct').innerText = pct + '%';
                 document.getElementById('trk-bar').style.width = pct + '%';
-                document.getElementById('trk-versao').innerText = `BUILD ${data.progresso?.versao || 'v0.1.0-ALPHA'} • Atualizado em ${data.progresso?.ultima_atualizacao || 'Hoje'}`;
+                document.getElementById('trk-versao').innerText = `BUILD ${data.progresso?.versao || 'v0.0.1-INÍCIO'} • Atualizado em ${data.progresso?.ultima_atualizacao || 'Hoje'}`;
 
                 if (data.metricas) {
                     document.getElementById('stat-tasks').innerText = `${data.metricas.tasks_concluidas}/${data.metricas.tasks_total}`;
@@ -325,7 +426,7 @@
                         <div class="dept-item">
                             <div class="dept-top">
                                 <span>${a.nome}</span>
-                                <span style="color:var(--accent-cyan);">${a.porcentagem}%</span>
+                                <span style="color:var(--accent-gold);">${a.porcentagem}%</span>
                             </div>
                             <div class="dept-bar-bg"><div class="dept-bar-fill" style="width:${a.porcentagem}%"></div></div>
                             <div class="dept-detail">🎯 ${a.detalhe || ''} • 👥 ${a.responsavel || 'Equipe Dev'}</div>

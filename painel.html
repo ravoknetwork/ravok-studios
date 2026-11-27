@@ -9,19 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #070a10;
-            --bg-card: #101624;
-            --bg-card-hover: #151d30;
-            --accent-blue: #4f46e5;
-            --accent-cyan: #00d2ff;
-            --accent-purple: #a855f7;
+            --bg-dark: #060911;
+            --bg-card: #0b1224;
+            --bg-card-hover: #101b36;
+            --accent-blue: #123a8f;
+            --accent-cyan: #f5c542;
+            --accent-sky: #00d2ff;
+            --accent-purple: #bfe0ff;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(0, 210, 255, 0.12);
-            --border-subtle: rgba(255, 255, 255, 0.06);
+            --text-muted: #9eb0cf;
+            --border-color: rgba(245, 197, 66, 0.24);
+            --border-subtle: rgba(191, 224, 255, 0.08);
             --danger: #ef4444;
             --success: #22c55e;
-            --warning: #f59e0b;
+            --warning: #f5c542;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
@@ -188,7 +189,7 @@
         <div class="card card-glow" style="width: 400px; text-align: center;">
             <img src="/assets/logo.jpg" alt="Ravok Studios" style="width: 92px; height: 92px; border-radius: 20px; margin-bottom: 12px; border: 2px solid var(--accent-cyan); box-shadow: 0 0 24px rgba(0,210,255,0.3);">
             <h2>RAVOK <span class="text-cyan">STUDIOS</span></h2>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 22px;">Central de Desenvolvimento Roblox & Bot Discord</p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 22px;">Central de Criação Minecraft & Projetos • Bot Discord</p>
             <div class="form-group" style="text-align: left;"><label>Usuário</label><input type="text" id="user-login" class="input-dark" placeholder="guiilew" value="guiilew"></div>
             <div class="form-group" style="text-align: left;"><label>Senha</label><input type="password" id="senha-login" class="input-dark" placeholder="••••••••" onkeydown="if(event.key==='Enter') fazerLogin()"></div>
             <button onclick="fazerLogin()" class="btn btn-cyan"><i class="fa-solid fa-unlock-keyhole"></i> Acessar Central Ravok</button>
@@ -201,7 +202,7 @@
         <div class="logo-area">
             <img src="/assets/logo.jpg" alt="Ravok Studios" style="width: 68px; height: 68px; border-radius: 16px; margin-bottom: 10px; border: 1px solid var(--accent-cyan); box-shadow: 0 0 18px rgba(0,210,255,0.25);">
             <h2>RAVOK <span class="text-cyan">BOT</span></h2>
-            <p>Roblox Studio & Discord Suite</p>
+            <p>Foco Minecraft • Roblox (Teste)</p>
         </div>
         <nav>
             <div class="nav-section-label">Servidor & Bot</div>
@@ -209,7 +210,7 @@
             <a onclick="abrirAba('aba-paineis', this)" class="nav-item"><i class="fa-solid fa-cubes"></i> Sistemas & Modais Discord</a>
             <a onclick="abrirAba('aba-acoes', this)" class="nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Eventos, Limpeza & Bênção</a>
 
-            <div class="nav-section-label">Equipe Dev (Roblox)</div>
+            <div class="nav-section-label">Equipe Dev (Minecraft)</div>
             <a onclick="abrirAba('aba-afazeres', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-list-check"></i> Afazeres (Kanban)</a>
             <a onclick="abrirAba('aba-ideias', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-lightbulb"></i> Painel de Ideias</a>
             <a onclick="abrirAba('aba-lore', this); carregarDevData();" class="nav-item"><i class="fa-solid fa-book-journal-whills"></i> Lore & História</a>
