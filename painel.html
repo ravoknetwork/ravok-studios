@@ -207,6 +207,7 @@
         <nav>
             <div class="nav-section-label">Servidor & Bot</div>
             <a onclick="abrirAba('aba-visao', this)" class="nav-item active"><i class="fa-solid fa-bolt"></i> Home & Criar Servidor</a>
+            <a onclick="abrirAba('aba-mc-status', this); carregarStatusMinecraft();" class="nav-item"><i class="fa-solid fa-server"></i> Status Minecraft</a>
             <a onclick="abrirAba('aba-paineis', this)" class="nav-item"><i class="fa-solid fa-cubes"></i> Sistemas & Modais Discord</a>
             <a onclick="abrirAba('aba-acoes', this)" class="nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Eventos, Limpeza & Bênção</a>
 
@@ -284,7 +285,7 @@
                         <strong>════════ Ravok Studios ════════</strong>
                         <div>📯｜anúncios</div>
                         <div>👀｜spoilers</div>
-                        <div>🖥️｜status (Progresso Live)</div>
+                        <div>🖥️｜status (Status Minecraft Live)</div>
                         <div>🏹｜eventos</div>
                         <div>🗓️｜atualizações</div>
                     </div>
@@ -666,6 +667,60 @@
                 <div class="card">
                     <div class="card-title">🔑 Usuários com Acesso ao Painel</div>
                     <div id="lista-usuarios" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABA: STATUS DO SERVIDOR MINECRAFT ==================== -->
+        <div id="aba-mc-status" class="secao-aba">
+            <div class="grid-2">
+                <div class="card card-glow">
+                    <div class="card-title"><i class="fa-solid fa-server text-cyan"></i> Monitoramento do Servidor Minecraft</div>
+                    <div class="card-desc">
+                        Configure abaixo o <strong>IP do servidor Minecraft</strong> que o bot deve acompanhar. O canal <strong>#🖥️｜status</strong> no Discord será atualizado automaticamente a cada <strong>60 segundos</strong> com status Online/Offline, versão, quantidade de jogadores e os <strong>nicks de quem está jogando</strong>!
+                    </div>
+                    <div class="form-group">
+                        <label>🌐 IP do Servidor Minecraft (pode incluir :porta)</label>
+                        <input type="text" id="mc-ip" class="input-dark" placeholder="Ex: jogar.ravokstudios.com.br ou 123.45.67.89:25565">
+                    </div>
+                    <div class="form-group">
+                        <label>🏷️ Nome do Servidor (Título no Discord)</label>
+                        <input type="text" id="mc-nome" class="input-dark" placeholder="Ex: RAVOK MC • Servidor Oficial">
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>🧱 Edição</label>
+                            <select id="mc-tipo" class="select-dark">
+                                <option value="java">Java Edition</option>
+                                <option value="bedrock">Bedrock Edition</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>🎮 Versão Recomendada</label>
+                            <input type="text" id="mc-versao" class="input-dark" placeholder="Ex: 1.21.x">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>📝 Texto Bonitinho do Canal #🖥️｜status</label>
+                        <textarea id="mc-desc" class="textarea-dark" placeholder="Conecte-se ao nosso servidor oficial de Minecraft e acompanhe abaixo o status e os jogadores online em tempo real!"></textarea>
+                    </div>
+                    <button onclick="salvarStatusMinecraft()" class="btn btn-cyan"><i class="fa-solid fa-floppy-disk"></i> Salvar IP & Atualizar #🖥️｜status no Discord</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title" style="justify-content: space-between;">
+                        <span><i class="fa-solid fa-signal text-cyan"></i> Preview Ao Vivo</span>
+                        <button onclick="carregarStatusMinecraft()" class="btn btn-primary btn-sm"><i class="fa-solid fa-rotate"></i> Consultar Agora</button>
+                    </div>
+                    <div id="mc-live-box" style="background: rgba(0,0,0,0.35); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 18px; min-height: 220px;">
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Clique em <strong>Consultar Agora</strong> ou salve um IP ao lado para visualizar o status em tempo real.</p>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">⚔️ Jogadores Online Agora (Nicks):</div>
+                        <div id="mc-players-box" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <span class="tag">Nenhum jogador listado</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1212,6 +1267,102 @@
         function copiarTexto(texto) {
             navigator.clipboard?.writeText(texto);
             showToast("Link copiado!");
+        }
+
+        function renderizarStatusMinecraft(st, cfg) {
+            if (cfg) {
+                if (cfg.mc_server_ip !== undefined) document.getElementById('mc-ip').value = cfg.mc_server_ip;
+                if (cfg.mc_server_nome !== undefined) document.getElementById('mc-nome').value = cfg.mc_server_nome;
+                if (cfg.mc_server_tipo !== undefined) document.getElementById('mc-tipo').value = cfg.mc_server_tipo;
+                if (cfg.mc_server_versao !== undefined) document.getElementById('mc-versao').value = cfg.mc_server_versao;
+                if (cfg.mc_server_descricao !== undefined) document.getElementById('mc-desc').value = cfg.mc_server_descricao;
+            }
+            const box = document.getElementById('mc-live-box');
+            const pBox = document.getElementById('mc-players-box');
+            if (!st || !st.configurado) {
+                box.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                        <span class="tag tag-yellow">🟡 AGUARDANDO IP</span>
+                    </div>
+                    <p style="color:var(--text-muted); font-size:0.86rem;">Nenhum IP de servidor Minecraft configurado ainda. Digite o IP ao lado e clique em <strong>Salvar</strong> para começar o monitoramento automático em #🖥️｜status.</p>
+                `;
+                pBox.innerHTML = '<span class="tag">Aguardando configuração de IP</span>';
+                return;
+            }
+            const badge = st.online
+                ? '<span class="tag tag-green">🟢 SERVIDOR ONLINE</span>'
+                : '<span class="tag" style="background:rgba(239,68,68,0.18); color:#f87171;">🔴 SERVIDOR OFFLINE</span>';
+            box.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+                    ${badge}
+                    <span class="tag tag-cyan">${st.ip}</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px;">
+                        <div style="font-size:0.74rem; color:var(--text-muted);">Jogadores</div>
+                        <div style="font-size:1.25rem; font-weight:800;">${st.playersOnline} / ${st.playersMax}</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px;">
+                        <div style="font-size:0.74rem; color:var(--text-muted);">Versão</div>
+                        <div style="font-size:1.05rem; font-weight:700;">${st.version || 'N/A'}</div>
+                    </div>
+                </div>
+                ${st.motd ? `<div style="font-size:0.82rem; color:var(--text-muted); border-left:3px solid var(--accent-cyan); padding-left:10px;">${st.motd}</div>` : ''}
+                <div style="font-size:0.74rem; color:var(--text-muted); margin-top:10px;">Última consulta: ${st.consultadoEm || 'Agora'}</div>
+            `;
+            if (st.online && st.playersList && st.playersList.length > 0) {
+                pBox.innerHTML = st.playersList.map(n => `
+                    <span class="tag tag-green" style="display:inline-flex; align-items:center; gap:6px; padding:5px 10px;">
+                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(n)}/20" style="width:18px; height:18px; border-radius:3px;">
+                        ${n}
+                    </span>
+                `).join('');
+            } else if (st.online && st.playersOnline > 0) {
+                pBox.innerHTML = `<span class="tag tag-cyan">${st.playersOnline} online (lista de nicks ocultada pelo servidor)</span>`;
+            } else if (st.online) {
+                pBox.innerHTML = '<span class="tag">Nenhum jogador conectado no momento</span>';
+            } else {
+                pBox.innerHTML = '<span class="tag">Servidor offline</span>';
+            }
+        }
+
+        async function carregarStatusMinecraft() {
+            try {
+                const r = await fetch(`${API_URL}/mc_status`, { headers: getAuthHeaders() });
+                const d = await r.json();
+                if (d.status === 'sucesso') {
+                    renderizarStatusMinecraft(d.mc_status, d.config);
+                }
+            } catch (e) {
+                showToast("Erro ao consultar status do Minecraft!", "error");
+            }
+        }
+
+        async function salvarStatusMinecraft() {
+            const payload = {
+                mc_server_ip: document.getElementById('mc-ip').value.trim(),
+                mc_server_nome: document.getElementById('mc-nome').value.trim(),
+                mc_server_tipo: document.getElementById('mc-tipo').value,
+                mc_server_versao: document.getElementById('mc-versao').value.trim(),
+                mc_server_descricao: document.getElementById('mc-desc').value.trim()
+            };
+            showToast("Salvando IP e atualizando #🖥️｜status...");
+            try {
+                const r = await fetch(`${API_URL}/mc_status`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify(payload)
+                });
+                const d = await r.json();
+                if (d.status === 'sucesso') {
+                    showToast(d.mensagem || "Status Minecraft atualizado!");
+                    renderizarStatusMinecraft(d.mc_status, d.config);
+                } else {
+                    showToast(d.erro || "Erro ao salvar IP", "error");
+                }
+            } catch (e) {
+                showToast("Falha de conexão com a API do Bot!", "error");
+            }
         }
 
         function abrirAba(idAba, el) {
